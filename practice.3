@@ -1,0 +1,47 @@
+class Smartphone:
+    def __init__(self, brand, model, battery):
+        self.brand = brand
+        self.model = model
+        self._battery = battery
+        self.__locked = True
+
+    def unlock(self, pin):
+        if pin == "1234":
+            self.__locked = False
+            return f"{self.model} unlocked ✅"
+        else:
+            return "Wrong PIN ❌"
+
+    def charge(self, amount):
+        self._battery = min(100, self._battery + amount)
+        return f"Battery charged to {self._battery}%"
+
+    def status(self):
+        return f"{self.brand} {self.model} | Battery: {self._battery}% | Locked: {self.__locked}"
+
+class GamingPhone(Smartphone):
+    def __init__(self, brand, model, battery, gpu):
+        super().__init__(brand, model, battery)
+        self.gpu = gpu
+
+    def status(self):
+        base_status = super().status()
+        return base_status + f" | GPU: {self.gpu}"
+
+    def play_game(self, game):
+        if self._battery < 20:
+            return f"Battery too low to play {game} ⚡"
+        else:
+            self._battery -= 20
+            return f"Playing {game} 🎮 | Battery: {self._battery}%"
+
+phone1 = Smartphone("Samsung", "Galaxy S23", 80)
+gaming_phone = GamingPhone("Asus", "ROG Phone 6", 90, "Adreno 730")
+
+print(phone1.status())
+print(phone1.unlock("1234"))
+print(phone1.status())
+
+print(gaming_phone.status())
+print(gaming_phone.play_game("PUBG"))
+print(gaming_phone.charge(15))
