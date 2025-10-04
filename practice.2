@@ -1,0 +1,17 @@
+filename = input("Enter the filename to read: ")
+
+try:
+    with open(filename, "r") as f:
+        content = f.read()
+        print("\n✅ File read successfully!\n")
+
+    modified_content = content.upper()
+
+    with open("output.txt", "w") as f:
+        f.write(modified_content)
+
+    print("✅ Modified content written to 'output.txt' successfully!")
+
+except FileNotFoundError:
+    print("❌ Error: File not found. Please check the name and try again.")
+except Perm
